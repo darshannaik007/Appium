@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 
 import java.awt.RenderingHints.Key;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -65,19 +66,32 @@ public class Sel {
   
   @Test
   public void Test2() {
-	  String s1 = "India Aus USA";
-	 
-	  String[] s = s1.split(" ");
-	  String large=null;
-	  int max=0;
+	  String s1 = "India Aus USAi";
 	  
-	  for (String sp : s) {
-		if(sp.length()>max) {
-			max=sp.length();
-			large = sp;
+	  char[] c = s1.toUpperCase().toCharArray();
+	  Map<Character, Integer> mp = new HashMap<Character, Integer>();
+	  
+	  for (char d : c) {
+		if(mp.containsKey(d)) {
+			mp.put(d, mp.get(d)+1);
+		} else {
+			mp.put(d, 1);
 		}
 	}
-	  System.out.println(large+":"+max);
+	 int max =0;
+	 Character s= null;
+
+	 for(Map.Entry<Character, Integer> entry : mp.entrySet()) {
+		if(entry.getValue()>max) {
+			max = entry.getValue();
+			s = entry.getKey();
+		} else if(max==entry.getValue()){
+			System.out.println(entry.getKey()+":"+entry.getValue());
+		}
+	 }
+	 
+	 System.out.println(s+":"+max);
+	  
 	  
   }
 
