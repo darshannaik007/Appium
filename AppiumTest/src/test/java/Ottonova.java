@@ -52,17 +52,14 @@ public class Ottonova {
 	  
 	  List<MobileElement> ele = driver.findElements(By.id("de.ottonova.mobile:id/ottoToolbarDefaultTitle"));
 	  Assert.assertTrue(ele.get(0).isDisplayed(),"Event page is not displayed");
-	  
-	  driver.findElement(By.id("de.ottonova.mobile:id/dismiss_button")).click();
-	  Thread.sleep(5000);
-	  
+
 	  int cardCount=0;
 	  for(;;) {
 		  List<MobileElement> ele1 = driver.findElements(By.id("de.ottonova.mobile:id/dismiss_button"));
-		  cardCount++;
 		  if(!ele1.isEmpty() && ele1.get(0).isDisplayed()) {			  
 			  String cardTitle = driver.findElement(By.id("de.ottonova.mobile:id/message")).getText();
 			  System.out.println(cardTitle);
+			  cardCount++;
 			  ele1.get(0).click();
 			  Thread.sleep(5000);
 		  } else {
