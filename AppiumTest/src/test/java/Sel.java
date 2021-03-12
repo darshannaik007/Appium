@@ -47,7 +47,7 @@ public class Sel {
   
   @Test(enabled=false)
   public void Test1() throws InterruptedException {
-	  driver.get("http://www.facebook.com/ ");
+	  driver.get("http://www.facebook.com/");
 	  
 	  WebElement e=driver.findElement(By.id("email"));
 	  
@@ -66,33 +66,15 @@ public class Sel {
   
   @Test
   public void Test2() {
-	  String s1 = "India Aus USAi";
-	  
-	  char[] c = s1.toUpperCase().toCharArray();
-	  Map<Character, Integer> mp = new HashMap<Character, Integer>();
-	  
-	  for (char d : c) {
-		if(mp.containsKey(d)) {
-			mp.put(d, mp.get(d)+1);
-		} else {
-			mp.put(d, 1);
-		}
-	}
-	 int max =0;
-	 Character s= null;
-
-	 for(Map.Entry<Character, Integer> entry : mp.entrySet()) {
-		if(entry.getValue()>max) {
-			max = entry.getValue();
-			s = entry.getKey();
-		} else if(max==entry.getValue()){
-			System.out.println(entry.getKey()+":"+entry.getValue());
-		}
-	 }
+	 driver.get("http://google.com/");
+	 driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[2]/div[1]/div[1]/div/div[2]/input")).sendKeys("IndiaVEng");
+	 driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[2]/div[1]/div[1]/div/div[2]/input")).sendKeys(Keys.ENTER);
 	 
-	 System.out.println(s+":"+max);
-	  
-	  
+	 driver.findElement(By.xpath("//span[text()='#IndiavEng - Recherche sur Twitter']")).click();
+	 
+	 WebElement ele = driver.findElement(By.xpath("//*[@id=\"react-root\"]/div/div/div[2]/main/div/div/div/div[1]/div/div[2]/div/div/section/div/div/div[1]/div/div/article/div/div/div/div[2]"));
+	 List<WebElement> ele1=ele.findElements(By.tagName("div"));
+	 System.out.println(ele1.size());
   }
 
 }
