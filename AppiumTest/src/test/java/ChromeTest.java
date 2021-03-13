@@ -84,7 +84,7 @@ public class ChromeTest {
       driver.removeApp("com.bmi.bmr.body.fat.calculator");
   }
   
-  @Test
+  @Test(enabled=false)
   public void Test4() {
 	  System.out.println("*--*--*-- Current screen orientation Is : " + driver.getOrientation());
 	  System.out.println("*--*--*-- Changing screen Orientation to LANDSCAPE.");

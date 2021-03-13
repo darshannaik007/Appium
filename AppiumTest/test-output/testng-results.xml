@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="72485" started-at="2021-03-12T23:46:38 IST" finished-at="2021-03-12T23:47:51 IST">
+  <suite name="Default suite" duration-ms="131689" started-at="2021-03-14T00:39:23 IST" finished-at="2021-03-14T00:41:35 IST">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="72485" started-at="2021-03-12T23:46:38 IST" finished-at="2021-03-12T23:47:51 IST">
+    <test name="Default test" duration-ms="131689" started-at="2021-03-14T00:39:23 IST" finished-at="2021-03-14T00:41:35 IST">
       <class name="Ottonova">
-        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:Ottonova@4d41cee]" name="beforeMethod" is-config="true" duration-ms="9405" started-at="2021-03-12T23:46:38 IST" finished-at="2021-03-12T23:46:47 IST">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:Ottonova@4d41cee]" name="beforeMethod" is-config="true" duration-ms="10316" started-at="2021-03-14T00:39:23 IST" finished-at="2021-03-14T00:39:33 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method status="PASS" signature="Test1()[pri:0, instance:Ottonova@4d41cee]" name="Test1" duration-ms="62028" started-at="2021-03-12T23:46:47 IST" finished-at="2021-03-12T23:47:50 IST">
+        <test-method status="PASS" signature="Test1()[pri:0, instance:Ottonova@4d41cee]" name="Test1" duration-ms="63420" started-at="2021-03-14T00:39:33 IST" finished-at="2021-03-14T00:40:37 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Test1 -->
-        <test-method status="PASS" signature="afterMethod()[pri:0, instance:Ottonova@4d41cee]" name="afterMethod" is-config="true" duration-ms="1004" started-at="2021-03-12T23:47:50 IST" finished-at="2021-03-12T23:47:51 IST">
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:Ottonova@4d41cee]" name="afterMethod" is-config="true" duration-ms="884" started-at="2021-03-14T00:40:37 IST" finished-at="2021-03-14T00:40:38 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:Ottonova@4d41cee]" name="beforeMethod" is-config="true" duration-ms="10161" started-at="2021-03-14T00:40:38 IST" finished-at="2021-03-14T00:40:48 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="Test2()[pri:0, instance:Ottonova@4d41cee]" name="Test2" duration-ms="45571" started-at="2021-03-14T00:40:48 IST" finished-at="2021-03-14T00:41:33 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test2 -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:Ottonova@4d41cee]" name="afterMethod" is-config="true" duration-ms="1287" started-at="2021-03-14T00:41:33 IST" finished-at="2021-03-14T00:41:35 IST">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->

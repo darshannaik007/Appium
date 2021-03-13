@@ -5,8 +5,8 @@
     <classes>
       <class name="Ottonova">
         <methods>
+          <include name="Test2"/>
           <include name="afterMethod"/>
-          <include name="Test1"/>
           <include name="beforeMethod"/>
         </methods>
       </class> <!-- Ottonova -->

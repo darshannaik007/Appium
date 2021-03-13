@@ -3,6 +3,7 @@ import org.testng.annotations.Test;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.touch.offset.PointOption;
 
 import org.testng.annotations.BeforeMethod;
@@ -10,17 +11,29 @@ import org.testng.annotations.BeforeMethod;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 
+import static io.appium.java_client.touch.TapOptions.tapOptions;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
+import static io.appium.java_client.touch.offset.PointOption.point;
+import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofSeconds;
+
 public class Ottonova {
 	
-  AndroidDriver<MobileElement> driver;
+  AndroidDriver<AndroidElement> driver;
 	
   @BeforeMethod
   public void beforeMethod() throws MalformedURLException {
@@ -33,7 +46,7 @@ public class Ottonova {
 	  cap.setCapability("appActivity", "de.ottonova.mobile.main.MainActivity");
 	  
 	  URL url = new URL("http://127.0.0.1:4723/wd/hub");
-	  driver = new AndroidDriver<MobileElement>(url, cap);
+	  driver = new AndroidDriver<AndroidElement>(url, cap);
 	  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
   }
   
@@ -41,21 +54,25 @@ public class Ottonova {
   public void Test1() throws InterruptedException {
 	  driver.resetApp();
 	  driver.findElement(By.id("de.ottonova.mobile:id/approveButton")).click();
+	  
+	  List<AndroidElement> logo = driver.findElements(By.id("de.ottonova.mobile:id/ottoLogo"));
+	  Assert.assertTrue(logo.get(0).isDisplayed(),"Welcome Screen is not displayed not displayed");
+	  
 	  driver.findElement(By.id("de.ottonova.mobile:id/freemiumButton")).click();
+	  Thread.sleep(5000);
 	  
 	  TouchAction tc1 = new TouchAction(driver);
-	  Thread.sleep(5000);
-	  tc1.tap(PointOption.point(540, 1010)).perform();
-	  Thread.sleep(5000);
-	  tc1.tap(PointOption.point(540, 1010)).perform();
-	  Thread.sleep(5000);
+	  for(int i=0;i<2;i++) {
+		  tc1.tap(PointOption.point(540, 1010)).perform();
+		  Thread.sleep(5000); 
+	  }
 	  
-	  List<MobileElement> ele = driver.findElements(By.id("de.ottonova.mobile:id/ottoToolbarDefaultTitle"));
+	  List<AndroidElement> ele = driver.findElements(By.id("de.ottonova.mobile:id/ottoToolbarDefaultTitle"));
 	  Assert.assertTrue(ele.get(0).isDisplayed(),"Event page is not displayed");
-
+	  
 	  int cardCount=0;
 	  for(;;) {
-		  List<MobileElement> ele1 = driver.findElements(By.id("de.ottonova.mobile:id/dismiss_button"));
+		  List<AndroidElement> ele1 = driver.findElements(By.id("de.ottonova.mobile:id/dismiss_button"));
 		  if(!ele1.isEmpty() && ele1.get(0).isDisplayed()) {			  
 			  String cardTitle = driver.findElement(By.id("de.ottonova.mobile:id/message")).getText();
 			  System.out.println(cardTitle);
@@ -66,9 +83,52 @@ public class Ottonova {
 			  break;
 		  }	  
 	  }
-	  System.out.println("Total number of Cards: "+cardCount);
-	  //String s = driver.getPageSource();
-	  //System.out.println(s);
+	  System.out.println("Total number of Cards: "+cardCount);	  
+  }
+  
+  @Test
+  public void Test2() throws InterruptedException {
+	  driver.resetApp();
+	  driver.findElement(By.id("de.ottonova.mobile:id/approveButton")).click();
+	  Thread.sleep(5000);
+	  
+	  List<AndroidElement> logo = driver.findElements(By.id("de.ottonova.mobile:id/ottoLogo"));
+	  Assert.assertTrue(logo.get(0).isDisplayed(),"Welcome Screen is not displayed not displayed");
+	  
+	  driver.findElement(By.id("de.ottonova.mobile:id/freemiumButton")).click();
+	  Thread.sleep(5000);
+	  
+	  TouchAction tc1 = new TouchAction(driver);
+	  for(int i=0;i<2;i++) {
+		  tc1.tap(PointOption.point(540, 1010)).perform();
+		  Thread.sleep(5000); 
+	  }
+	  
+	  List<AndroidElement> ele = driver.findElements(By.id("de.ottonova.mobile:id/ottoToolbarDefaultTitle"));
+	  Assert.assertTrue(ele.get(0).isDisplayed(),"Event page is not displayed");
+	  
+	  driver.findElement(By.xpath("//android.view.ViewGroup[4]")).click();	  	  
+	  Thread.sleep(5000); 
+	  tc1.tap(PointOption.point(540, 1010)).perform();
+	  
+	  List<AndroidElement> profilePage = driver.findElements(By.id("de.ottonova.mobile:id/profileMasterName"));
+	  Assert.assertTrue(profilePage.get(0).isDisplayed(),"Profile page is not displayed");
+	  
+	  driver.findElement(By.xpath("//android.widget.TextView[@text='Our Tariffs']")).click();
+	  driver.findElement(By.id("de.ottonova.mobile:id/tariffListCalculate")).click();
+	  Thread.sleep(5000);
+	  
+	  Set<String> allContext = driver.getContextHandles();
+	    for (String context : allContext) {
+	        if (context.contains("WEBVIEW"))
+	            driver.context(context);
+	    }
+	  
+	  String currentUrl = driver.getCurrentUrl();
+	  String expectedUrl = "https://www.ottonova.de/online-beitragsrechner/?utm_source=content_referral&utm_medium=ottonova_app&utm_campaign=tariff";
+	  driver.close();
+
+	  Assert.assertEquals(currentUrl, expectedUrl, "URL doesn't match");
 	  
   }
 
