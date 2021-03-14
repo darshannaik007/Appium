@@ -52,24 +52,31 @@ public class Ottonova {
   
   @Test
   public void Test1() throws InterruptedException {
+	  
+	  //To reset the App or to delete the data of the app in order to reproduce new app behavior 
 	  driver.resetApp();
 	  driver.findElement(By.id("de.ottonova.mobile:id/approveButton")).click();
 	  
+	  //To make sure that the welcome screen is Displayed
 	  List<AndroidElement> logo = driver.findElements(By.id("de.ottonova.mobile:id/ottoLogo"));
 	  Assert.assertTrue(logo.get(0).isDisplayed(),"Welcome Screen is not displayed not displayed");
 	  
 	  driver.findElement(By.id("de.ottonova.mobile:id/freemiumButton")).click();
 	  Thread.sleep(5000);
 	  
+	  //To get rid of the popups(tap at the center of the screen)
 	  TouchAction tc1 = new TouchAction(driver);
 	  for(int i=0;i<2;i++) {
 		  tc1.tap(PointOption.point(540, 1010)).perform();
 		  Thread.sleep(5000); 
 	  }
 	  
-	  List<AndroidElement> ele = driver.findElements(By.id("de.ottonova.mobile:id/ottoToolbarDefaultTitle"));
-	  Assert.assertTrue(ele.get(0).isDisplayed(),"Event page is not displayed");
+	  //To make sure that the Event page is displayed
+	  List<AndroidElement> event = driver.findElements(By.id("de.ottonova.mobile:id/ottoToolbarDefaultTitle"));
+	  Assert.assertTrue(event.get(0).isDisplayed(),"Event page is not displayed");
 	  
+	  //To calculate the number of cards displayed on event screen and printing the card title(Another way of implementing it is using swipe action but i found this to be more efficient way)
+	  //this code will run even if the number of card displayed is dynamic
 	  int cardCount=0;
 	  for(;;) {
 		  List<AndroidElement> ele1 = driver.findElements(By.id("de.ottonova.mobile:id/dismiss_button"));
@@ -88,12 +95,15 @@ public class Ottonova {
   
   @Test
   public void Test2() throws InterruptedException {
+	  
+	  //To reset the App or to delete the data of the app in order to reproduce new app behavior
 	  driver.resetApp();
 	  driver.findElement(By.id("de.ottonova.mobile:id/approveButton")).click();
 	  Thread.sleep(5000);
 	  
+	  //To make sure that the welcome screen is Displayed
 	  List<AndroidElement> logo = driver.findElements(By.id("de.ottonova.mobile:id/ottoLogo"));
-	  Assert.assertTrue(logo.get(0).isDisplayed(),"Welcome Screen is not displayed not displayed");
+	  Assert.assertTrue(logo.get(0).isDisplayed(),"Welcome Screen is not displayed");
 	  
 	  driver.findElement(By.id("de.ottonova.mobile:id/freemiumButton")).click();
 	  Thread.sleep(5000);
@@ -104,13 +114,16 @@ public class Ottonova {
 		  Thread.sleep(5000); 
 	  }
 	  
-	  List<AndroidElement> ele = driver.findElements(By.id("de.ottonova.mobile:id/ottoToolbarDefaultTitle"));
-	  Assert.assertTrue(ele.get(0).isDisplayed(),"Event page is not displayed");
+	  //To make sure that the Event screen is Displayed
+	  List<AndroidElement> event = driver.findElements(By.id("de.ottonova.mobile:id/ottoToolbarDefaultTitle"));
+	  Assert.assertTrue(event.get(0).isDisplayed(),"Event page is not displayed");
 	  
+	  //To click on profile(Since the element doesn't have id so i used XPath)
 	  driver.findElement(By.xpath("//android.view.ViewGroup[4]")).click();	  	  
 	  Thread.sleep(5000); 
 	  tc1.tap(PointOption.point(540, 1010)).perform();
 	  
+	  //To make sure that the Profile page is Displayed
 	  List<AndroidElement> profilePage = driver.findElements(By.id("de.ottonova.mobile:id/profileMasterName"));
 	  Assert.assertTrue(profilePage.get(0).isDisplayed(),"Profile page is not displayed");
 	  
@@ -118,6 +131,7 @@ public class Ottonova {
 	  driver.findElement(By.id("de.ottonova.mobile:id/tariffListCalculate")).click();
 	  Thread.sleep(5000);
 	  
+	  //To switch to WebView
 	  Set<String> allContext = driver.getContextHandles();
 	    for (String context : allContext) {
 	        if (context.contains("WEBVIEW"))
@@ -127,7 +141,8 @@ public class Ottonova {
 	  String currentUrl = driver.getCurrentUrl();
 	  String expectedUrl = "https://www.ottonova.de/online-beitragsrechner/?utm_source=content_referral&utm_medium=ottonova_app&utm_campaign=tariff";
 	  driver.close();
-
+	  
+	  //To make sure that the URL matches the expected URL given in the task
 	  Assert.assertEquals(currentUrl, expectedUrl, "URL doesn't match");
 	  
   }
