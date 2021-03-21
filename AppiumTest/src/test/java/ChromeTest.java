@@ -2,8 +2,13 @@ import org.testng.annotations.Test;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.MultiTouchAction;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.NetworkSpeed;
+import io.appium.java_client.touch.LongPressOptions;
+import io.appium.java_client.touch.TapOptions;
+import net.bytebuddy.description.NamedElement.WithOptionalName;
 
 import org.testng.annotations.BeforeMethod;
 
@@ -12,6 +17,7 @@ import static org.testng.Assert.assertEquals;
 import java.util.List;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +26,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.util.Assert;
 import org.testng.annotations.AfterMethod;
+
+import static io.appium.java_client.touch.TapOptions.tapOptions;
+import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
+import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
+import static io.appium.java_client.touch.offset.PointOption.point;
+import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofSeconds;
 
 public class ChromeTest {
 	
@@ -113,7 +127,7 @@ public class ChromeTest {
 	  */
   }
   
-  @Test
+  @Test(enabled=false)
   public void Test6() throws InterruptedException {
 	  List<MobileElement> ele = driver.findElements(By.xpath("//androidx.recyclerview.widget.RecyclerView"));
 	  MobileElement mb = ele.get(1);
@@ -124,6 +138,65 @@ public class ChromeTest {
 		System.out.println(m.getText());
 		
 	}
+	  
+  }
+  @Test
+  public void Test7() throws InterruptedException {
+	  MobileElement ele = driver.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.ScrollView/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.widget.FrameLayout/androidx.recyclerview.widget.RecyclerView/android.widget.LinearLayout[1]"));
+	  
+	  //Tap using element
+	  TouchAction ac1 = new TouchAction(driver);
+	  ac1.tap(tapOptions().withElement(element(ele)))
+	    .waitAction(waitOptions(Duration.ofSeconds(2)))
+	    .perform();
+	  
+	  //tap using coordinates
+	  TouchAction ac2 = new TouchAction(driver);
+	  ac2.tap(point(500, 700))
+	  	.perform();
+	  Thread.sleep(10000);
+	  
+	  //press using element
+	  TouchAction ac3 = new TouchAction(driver);
+	  ac3.press(element(ele))
+	  	 .waitAction(waitOptions(Duration.ofSeconds(2)))
+	  	 .release()
+	  	 .perform();
+	  Thread.sleep(1000);
+	  
+	  //press using coordinates
+	  TouchAction ac4 = new TouchAction(driver);
+	  ac4.press(point(500, 700))
+	    .waitAction(waitOptions(Duration.ofSeconds(2)))
+	     .release()
+	    .perform();
+	  
+	  //Swipe vertically
+	  TouchAction ac5 = new TouchAction(driver);
+	  ac5.press(point(540, 800))
+	     .waitAction(waitOptions(ofMillis(1000)))
+	     .moveTo(point(540, 400))
+	     .release()
+	     .perform();
+	  Thread.sleep(10000);
+	  
+	  //Multi touch
+	  TouchAction ac6 = new TouchAction(driver);
+	  ac6.press(point(500, 700))
+	    .waitAction(waitOptions(ofMillis(1000)))
+	    .release()
+	    .perform();
+	  
+	  new MultiTouchAction(driver)
+	  	.add(ac6)
+	  	.perform();
+	  
+	  //Long press
+	  TouchAction action = new TouchAction(driver);
+	  action.longPress(longPressOptions().withElement(element(ele)))
+	  		.waitAction(waitOptions(ofMillis(1000)))
+	  		.release()
+	  		.perform();
 	  
   }
   

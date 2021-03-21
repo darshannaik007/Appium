@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 
 import java.awt.RenderingHints.Key;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,6 +28,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.core.convert.converter.ConditionalConverter;
 import org.testng.annotations.AfterMethod;
 
 public class Sel {
@@ -45,7 +48,7 @@ public class Sel {
 	  driver.close();
   }
   
-  @Test(enabled=false)
+  @Test
   public void Test1() throws InterruptedException {
 	  driver.get("http://www.facebook.com/");
 	  
@@ -64,17 +67,9 @@ public class Sel {
 	
   }
   
-  @Test
+  @Test(enabled=false)
   public void Test2() {
-	 driver.get("http://google.com/");
-	 driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[2]/div[1]/div[1]/div/div[2]/input")).sendKeys("IndiaVEng");
-	 driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[2]/div[1]/div[1]/div/div[2]/input")).sendKeys(Keys.ENTER);
-	 
-	 driver.findElement(By.xpath("//span[text()='#IndiavEng - Recherche sur Twitter']")).click();
-	 
-	 WebElement ele = driver.findElement(By.xpath("//*[@id=\"react-root\"]/div/div/div[2]/main/div/div/div/div[1]/div/div[2]/div/div/section/div/div/div[1]/div/div/article/div/div/div/div[2]"));
-	 List<WebElement> ele1=ele.findElements(By.tagName("div"));
-	 System.out.println(ele1.size());
+	
+	
   }
-
 }
